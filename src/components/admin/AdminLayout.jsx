@@ -6,10 +6,7 @@ import { useTheme } from '../../hooks/useTheme';
 import { useAuth } from '../../hooks/useAuth';
 import AdminNavigation from './AdminNavigation';
 
-const { 
-  FiMenu, FiX, FiSun, FiMoon, FiLogOut, FiMusic, 
-  FiBell, FiSearch, FiUser
-} = FiIcons;
+const { FiMenu, FiX, FiSun, FiMoon, FiLogOut, FiMusic, FiBell, FiSearch, FiUser } = FiIcons;
 
 const AdminLayout = ({ children }) => {
   const [sidebarOpen, setSidebarOpen] = useState(true);
@@ -44,9 +41,7 @@ const AdminLayout = ({ children }) => {
           x: mobileMenuOpen ? 0 : '-100%'
         }}
         className={`fixed left-0 top-0 h-full z-50 ${
-          theme === 'dark' 
-            ? 'bg-gray-800 border-gray-700' 
-            : 'bg-white border-gray-200'
+          theme === 'dark' ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-200'
         } border-r shadow-xl lg:translate-x-0 transition-all duration-300`}
       >
         {/* Sidebar Header */}
@@ -89,12 +84,11 @@ const AdminLayout = ({ children }) => {
               onClick={() => setSidebarOpen(!sidebarOpen)}
               className="hidden lg:block p-1.5 rounded-md hover:bg-gray-700 transition-colors"
             >
-              <SafeIcon 
-                icon={sidebarOpen ? FiX : FiMenu} 
-                className="w-4 h-4 text-gray-400" 
+              <SafeIcon
+                icon={sidebarOpen ? FiX : FiMenu}
+                className="w-4 h-4 text-gray-400"
               />
             </button>
-            
             {/* Mobile close */}
             <button
               onClick={() => setMobileMenuOpen(false)}
@@ -132,7 +126,7 @@ const AdminLayout = ({ children }) => {
                   </p>
                 </div>
               </div>
-              
+
               {/* Logout Button */}
               <button
                 onClick={logout}
@@ -163,14 +157,10 @@ const AdminLayout = ({ children }) => {
       </motion.aside>
 
       {/* Main Content */}
-      <div className={`transition-all duration-300 ${
-        sidebarOpen ? 'lg:ml-280' : 'lg:ml-80'
-      }`}>
+      <div className={`transition-all duration-300 ${sidebarOpen ? 'lg:ml-280' : 'lg:ml-80'}`}>
         {/* Top Bar */}
         <header className={`sticky top-0 z-30 ${
-          theme === 'dark' 
-            ? 'bg-gray-800/95 border-gray-700' 
-            : 'bg-white/95 border-gray-200'
+          theme === 'dark' ? 'bg-gray-800/95 border-gray-700' : 'bg-white/95 border-gray-200'
         } border-b backdrop-blur-lg`}>
           <div className="flex items-center justify-between px-6 py-4">
             {/* Mobile Menu Button */}
@@ -184,16 +174,16 @@ const AdminLayout = ({ children }) => {
             {/* Search Bar */}
             <div className="flex-1 max-w-md mx-4">
               <div className="relative">
-                <SafeIcon 
-                  icon={FiSearch} 
-                  className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" 
+                <SafeIcon
+                  icon={FiSearch}
+                  className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400"
                 />
                 <input
                   type="text"
                   placeholder="Search..."
                   className={`w-full pl-10 pr-4 py-2 rounded-lg border transition-colors focus:outline-none focus:ring-2 focus:ring-primary-500 ${
-                    theme === 'dark' 
-                      ? 'bg-gray-700 border-gray-600 text-white placeholder-gray-400' 
+                    theme === 'dark'
+                      ? 'bg-gray-700 border-gray-600 text-white placeholder-gray-400'
                       : 'bg-white border-gray-300 text-gray-900 placeholder-gray-500'
                   }`}
                 />
@@ -214,8 +204,8 @@ const AdminLayout = ({ children }) => {
                 whileTap={{ scale: 0.95 }}
                 onClick={toggleTheme}
                 className={`p-2 rounded-lg transition-colors ${
-                  theme === 'dark' 
-                    ? 'bg-gray-700 text-yellow-400 hover:bg-gray-600' 
+                  theme === 'dark'
+                    ? 'bg-gray-700 text-yellow-400 hover:bg-gray-600'
                     : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
                 }`}
               >

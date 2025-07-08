@@ -6,7 +6,7 @@ import SafeIcon from '../../common/SafeIcon';
 import { useTheme } from '../../hooks/useTheme';
 import { useAuth } from '../../hooks/useAuth';
 
-const { FiHome, FiFileText, FiImage, FiBarChart3, FiSettings, FiLogOut, FiMusic, FiChevronLeft, FiChevronRight } = FiIcons;
+const { FiHome, FiFileText, FiImage, FiBarChart3, FiSettings, FiLogOut, FiMusic, FiChevronLeft, FiChevronRight, FiLayout } = FiIcons;
 
 const AdminSidebar = ({ sidebarOpen, setSidebarOpen }) => {
   const location = useLocation();
@@ -15,6 +15,7 @@ const AdminSidebar = ({ sidebarOpen, setSidebarOpen }) => {
 
   const menuItems = [
     { path: '/admin/dashboard', icon: FiHome, label: 'Dashboard' },
+    { path: '/admin/pages', icon: FiLayout, label: 'Pages' },
     { path: '/admin/content', icon: FiFileText, label: 'Content' },
     { path: '/admin/media', icon: FiImage, label: 'Media' },
     { path: '/admin/analytics', icon: FiBarChart3, label: 'Analytics' },
@@ -41,14 +42,9 @@ const AdminSidebar = ({ sidebarOpen, setSidebarOpen }) => {
       {/* Sidebar */}
       <motion.aside
         initial={false}
-        animate={{ 
-          x: sidebarOpen ? 0 : '-100%',
-          width: sidebarOpen ? 256 : 80 
-        }}
+        animate={{ x: sidebarOpen ? 0 : '-100%', width: sidebarOpen ? 256 : 80 }}
         className={`fixed left-0 top-0 h-full z-50 ${
-          theme === 'dark' 
-            ? 'bg-gray-900 border-gray-800' 
-            : 'bg-white border-gray-200'
+          theme === 'dark' ? 'bg-gray-900 border-gray-800' : 'bg-white border-gray-200'
         } border-r shadow-lg transition-all duration-300 lg:translate-x-0`}
       >
         <div className="flex flex-col h-full">
@@ -72,14 +68,13 @@ const AdminSidebar = ({ sidebarOpen, setSidebarOpen }) => {
                   </motion.div>
                 )}
               </AnimatePresence>
-              
               <button
                 onClick={() => setSidebarOpen(!sidebarOpen)}
                 className="p-2 rounded-lg hover:bg-gray-800 transition-colors"
               >
-                <SafeIcon 
-                  icon={sidebarOpen ? FiChevronLeft : FiChevronRight} 
-                  className="w-5 h-5 text-gray-400" 
+                <SafeIcon
+                  icon={sidebarOpen ? FiChevronLeft : FiChevronRight}
+                  className="w-5 h-5 text-gray-400"
                 />
               </button>
             </div>
@@ -95,8 +90,8 @@ const AdminSidebar = ({ sidebarOpen, setSidebarOpen }) => {
                   isActive(item.path)
                     ? 'bg-primary-500 text-black'
                     : theme === 'dark'
-                      ? 'text-gray-300 hover:bg-gray-800 hover:text-primary-400'
-                      : 'text-gray-700 hover:bg-gray-100 hover:text-primary-600'
+                    ? 'text-gray-300 hover:bg-gray-800 hover:text-primary-400'
+                    : 'text-gray-700 hover:bg-gray-100 hover:text-primary-600'
                 }`}
               >
                 <SafeIcon icon={item.icon} className="w-5 h-5 flex-shrink-0" />
