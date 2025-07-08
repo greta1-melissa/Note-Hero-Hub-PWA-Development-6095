@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense, lazy } from 'react';
 import { HashRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Toaster } from 'react-hot-toast';
@@ -10,15 +10,15 @@ import Footer from './components/Footer';
 import PWAInstallPrompt from './components/PWAInstallPrompt';
 import PWAUpdateNotification from './components/PWAUpdateNotification';
 
-// Pages
-import Home from './pages/Home';
-import About from './pages/About';
-import Portfolio from './pages/Portfolio';
-import Videos from './pages/Videos';
-import Contact from './pages/Contact';
-import Blog from './pages/Blog';
-import AdminLogin from './pages/admin/AdminLogin';
-import AdminDashboard from './pages/admin/AdminDashboard';
+// Lazy load pages for better performance
+const Home = lazy(() => import('./pages/Home'));
+const About = lazy(() => import('./pages/About'));
+const Portfolio = lazy(() => import('./pages/Portfolio'));
+const Videos = lazy(() => import('./pages/Videos'));
+const Contact = lazy(() => import('./pages/Contact'));
+const Blog = lazy(() => import('./pages/Blog'));
+const AdminLogin = lazy(() => import('./pages/admin/AdminLogin'));
+const AdminDashboard = lazy(() => import('./pages/admin/AdminDashboard'));
 
 // Hooks
 import { useAuth } from './hooks/useAuth';
@@ -31,16 +31,33 @@ import { ThemeProvider } from './context/ThemeContext';
 // Styles
 import './App.css';
 
+// Loading component
+const PageLoader = () => {
+  const { theme } = useTheme();
+  return (
+    <div className={`min-h-screen flex items-center justify-center ${
+      theme === 'dark' ? 'bg-gray-900' : 'bg-gray-50'
+    }`}>
+      <div className="text-center">
+        <div className="w-12 h-12 border-4 border-gray-300 border-t-primary-500 rounded-full animate-spin mx-auto mb-4"></div>
+        <p className={`text-lg ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>
+          Loading...
+        </p>
+      </div>
+    </div>
+  );
+};
+
 function AppContent() {
   const { theme } = useTheme();
   const { isAuthenticated } = useAuth();
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // Simulate app initialization
+    // Faster app initialization
     const timer = setTimeout(() => {
       setIsLoading(false);
-    }, 1500);
+    }, 800);
 
     return () => clearTimeout(timer);
   }, []);
@@ -62,7 +79,7 @@ function AppContent() {
           <motion.h2
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 0.5 }}
+            transition={{ delay: 0.3 }}
             className="text-2xl font-bold text-primary-400"
           >
             Note Hero Hub
@@ -70,10 +87,10 @@ function AppContent() {
           <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 0.7 }}
+            transition={{ delay: 0.5 }}
             className="text-gray-400 mt-2"
           >
-            Loading musical experience...
+            Loading...
           </motion.p>
         </motion.div>
       </div>
@@ -82,47 +99,50 @@ function AppContent() {
 
   return (
     <div className={`min-h-screen transition-colors duration-300 ${
-      theme === 'dark'
-        ? 'bg-gradient-to-br from-black via-gray-900 to-black text-white'
+      theme === 'dark' 
+        ? 'bg-gradient-to-br from-black via-gray-900 to-black text-white' 
         : 'bg-gradient-to-br from-gray-50 via-white to-gray-100 text-gray-900'
     }`}>
       <Router>
-        <AnimatePresence mode="wait">
+        <Suspense fallback={<PageLoader />}>
           <Routes>
             <Route path="/admin/login" element={<AdminLogin />} />
-            <Route
-              path="/admin/*"
-              element={isAuthenticated ? <AdminDashboard /> : <Navigate to="/admin/login" />}
+            <Route 
+              path="/admin/*" 
+              element={isAuthenticated ? <AdminDashboard /> : <Navigate to="/admin/login" />} 
             />
-            <Route
-              path="/*"
+            <Route 
+              path="/*" 
               element={
                 <div className="flex flex-col min-h-screen">
                   <Navbar />
                   <main className="flex-grow">
-                    <Routes>
-                      <Route path="/" element={<Home />} />
-                      <Route path="/about" element={<About />} />
-                      <Route path="/portfolio" element={<Portfolio />} />
-                      <Route path="/videos" element={<Videos />} />
-                      <Route path="/blog" element={<Blog />} />
-                      <Route path="/contact" element={<Contact />} />
-                    </Routes>
+                    <Suspense fallback={<PageLoader />}>
+                      <Routes>
+                        <Route path="/" element={<Home />} />
+                        <Route path="/about" element={<About />} />
+                        <Route path="/portfolio" element={<Portfolio />} />
+                        <Route path="/videos" element={<Videos />} />
+                        <Route path="/blog" element={<Blog />} />
+                        <Route path="/contact" element={<Contact />} />
+                      </Routes>
+                    </Suspense>
                   </main>
                   <Footer />
                 </div>
-              }
+              } 
             />
           </Routes>
-        </AnimatePresence>
+        </Suspense>
       </Router>
 
       <PWAInstallPrompt />
       <PWAUpdateNotification />
+      
       <Toaster
         position="top-right"
         toastOptions={{
-          duration: 4000,
+          duration: 3000,
           style: {
             background: theme === 'dark' ? '#1f2937' : '#ffffff',
             color: theme === 'dark' ? '#ffffff' : '#1f2937',

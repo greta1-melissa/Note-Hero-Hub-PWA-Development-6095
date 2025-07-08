@@ -64,6 +64,30 @@ export default defineConfig({
   },
   build: {
     outDir: 'dist',
-    sourcemap: true
+    sourcemap: false, // Disable sourcemaps in production for faster builds
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          // Split vendor libraries into separate chunks
+          'react-vendor': ['react', 'react-dom', 'react-router-dom'],
+          'ui-vendor': ['framer-motion', 'react-icons'],
+          'admin-components': [
+            './src/components/admin/AdminDemo.jsx',
+            './src/components/admin/ContentManager.jsx',
+            './src/components/admin/MediaManager.jsx',
+            './src/components/admin/AnalyticsReports.jsx',
+            './src/components/admin/AdminSettings.jsx',
+            './src/components/admin/PageManager.jsx'
+          ]
+        }
+      }
+    }
+  },
+  server: {
+    port: 3000,
+    open: true
+  },
+  optimizeDeps: {
+    include: ['react', 'react-dom', 'react-router-dom', 'framer-motion']
   }
 });
