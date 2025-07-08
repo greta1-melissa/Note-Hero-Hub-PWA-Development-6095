@@ -5,10 +5,7 @@ import * as FiIcons from 'react-icons/fi';
 import SafeIcon from '../../common/SafeIcon';
 import { useTheme } from '../../hooks/useTheme';
 
-const { 
-  FiHome, FiFileText, FiImage, FiBarChart3, FiSettings, 
-  FiUsers, FiMessageSquare, FiCalendar, FiMusic
-} = FiIcons;
+const { FiHome, FiFileText, FiImage, FiBarChart3, FiSettings, FiUsers, FiMessageSquare, FiCalendar, FiMusic, FiLayout } = FiIcons;
 
 const AdminNavigation = ({ collapsed = false }) => {
   const { theme } = useTheme();
@@ -18,63 +15,29 @@ const AdminNavigation = ({ collapsed = false }) => {
     {
       section: 'Overview',
       items: [
-        { 
-          name: 'Dashboard', 
-          path: '/admin/dashboard', 
-          icon: FiHome,
-          description: 'Main overview and stats'
-        }
+        { name: 'Dashboard', path: '/admin/dashboard', icon: FiHome, description: 'Main overview and stats' }
       ]
     },
     {
       section: 'Content Management',
       items: [
-        { 
-          name: 'Content', 
-          path: '/admin/content', 
-          icon: FiFileText,
-          description: 'Blog posts and articles'
-        },
-        { 
-          name: 'Portfolio', 
-          path: '/admin/portfolio', 
-          icon: FiMusic,
-          description: 'Musical performances'
-        },
-        { 
-          name: 'Media', 
-          path: '/admin/media', 
-          icon: FiImage,
-          description: 'Images and videos'
-        }
+        { name: 'Pages', path: '/admin/pages', icon: FiLayout, description: 'Edit website pages' },
+        { name: 'Content', path: '/admin/content', icon: FiFileText, description: 'Blog posts and articles' },
+        { name: 'Portfolio', path: '/admin/portfolio', icon: FiMusic, description: 'Musical performances' },
+        { name: 'Media', path: '/admin/media', icon: FiImage, description: 'Images and videos' }
       ]
     },
     {
       section: 'Analytics & Insights',
       items: [
-        { 
-          name: 'Analytics', 
-          path: '/admin/analytics', 
-          icon: FiBarChart3,
-          description: 'Performance metrics'
-        },
-        { 
-          name: 'Messages', 
-          path: '/admin/messages', 
-          icon: FiMessageSquare,
-          description: 'Contact inquiries'
-        }
+        { name: 'Analytics', path: '/admin/analytics', icon: FiBarChart3, description: 'Performance metrics' },
+        { name: 'Messages', path: '/admin/messages', icon: FiMessageSquare, description: 'Contact inquiries' }
       ]
     },
     {
       section: 'System',
       items: [
-        { 
-          name: 'Settings', 
-          path: '/admin/settings', 
-          icon: FiSettings,
-          description: 'Account and preferences'
-        }
+        { name: 'Settings', path: '/admin/settings', icon: FiSettings, description: 'Account and preferences' }
       ]
     }
   ];
@@ -106,15 +69,13 @@ const AdminNavigation = ({ collapsed = false }) => {
                     isActive(item.path)
                       ? 'bg-primary-500 text-black shadow-lg'
                       : theme === 'dark'
-                        ? 'text-gray-300 hover:bg-gray-700 hover:text-primary-400'
-                        : 'text-gray-700 hover:bg-gray-100 hover:text-primary-600'
+                      ? 'text-gray-300 hover:bg-gray-700 hover:text-primary-400'
+                      : 'text-gray-700 hover:bg-gray-100 hover:text-primary-600'
                   }`}
                 >
-                  <SafeIcon 
-                    icon={item.icon} 
-                    className={`flex-shrink-0 w-5 h-5 ${
-                      collapsed ? 'mx-auto' : 'mr-3'
-                    }`} 
+                  <SafeIcon
+                    icon={item.icon}
+                    className={`flex-shrink-0 w-5 h-5 ${collapsed ? 'mx-auto' : 'mr-3'}`}
                   />
                   {!collapsed && (
                     <>

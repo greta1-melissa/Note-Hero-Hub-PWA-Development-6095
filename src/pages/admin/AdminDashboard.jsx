@@ -9,6 +9,7 @@ import ContentManager from '../../components/admin/ContentManager';
 import MediaManager from '../../components/admin/MediaManager';
 import AnalyticsReports from '../../components/admin/AnalyticsReports';
 import AdminSettings from '../../components/admin/AdminSettings';
+import PageManager from '../../components/admin/PageManager';
 import { useTheme } from '../../hooks/useTheme';
 
 const AdminDashboard = () => {
@@ -20,7 +21,7 @@ const AdminDashboard = () => {
       <Helmet>
         <title>Admin Dashboard - Note Hero Hub</title>
         <meta name="description" content="Personal admin dashboard for Note Hero Hub" />
-        <meta name="robots" content="noindex, nofollow, noarchive, nosnippet" />
+        <meta name="robots" content="noindex,nofollow,noarchive,nosnippet" />
       </Helmet>
 
       <div className={`min-h-screen ${
@@ -29,20 +30,12 @@ const AdminDashboard = () => {
           : 'bg-gradient-to-br from-gray-50 to-white'
       }`}>
         {/* Sidebar */}
-        <AdminSidebar 
-          sidebarOpen={sidebarOpen} 
-          setSidebarOpen={setSidebarOpen} 
-        />
+        <AdminSidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
 
         {/* Main Content */}
-        <div className={`transition-all duration-300 ${
-          sidebarOpen ? 'lg:ml-64' : 'lg:ml-20'
-        }`}>
+        <div className={`transition-all duration-300 ${sidebarOpen ? 'lg:ml-64' : 'lg:ml-20'}`}>
           {/* Header */}
-          <AdminHeader 
-            sidebarOpen={sidebarOpen} 
-            setSidebarOpen={setSidebarOpen} 
-          />
+          <AdminHeader sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
 
           {/* Content */}
           <main className="p-6">
@@ -54,6 +47,7 @@ const AdminDashboard = () => {
               <Routes>
                 <Route path="/" element={<Navigate to="/admin/dashboard" replace />} />
                 <Route path="/dashboard" element={<AdminDemo />} />
+                <Route path="/pages" element={<PageManager />} />
                 <Route path="/content" element={<ContentManager />} />
                 <Route path="/media" element={<MediaManager />} />
                 <Route path="/analytics" element={<AnalyticsReports />} />
