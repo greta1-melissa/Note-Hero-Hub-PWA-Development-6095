@@ -1,52 +1,51 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
 import * as FiIcons from 'react-icons/fi';
 import SafeIcon from '../../common/SafeIcon';
 import { useTheme } from '../../hooks/useTheme';
 
-const { FiUsers, FiFileText, FiPlay, FiHeart, FiTrendingUp, FiCalendar, FiEye, FiDownload } = FiIcons;
+const { FiFileText, FiPlay, FiHeart, FiTrendingUp, FiCalendar, FiEye, FiDownload, FiMusic } = FiIcons;
 
 const AdminDemo = () => {
   const { theme } = useTheme();
-  const [activeTab, setActiveTab] = useState('overview');
 
   const stats = [
     {
-      title: 'Total Users',
-      value: '2,543',
-      trend: 12.5,
-      icon: FiUsers,
+      title: 'Total Posts',
+      value: '42',
+      trend: 8.2,
+      icon: FiFileText,
       color: 'from-blue-500 to-blue-600'
     },
     {
-      title: 'Content Posts',
-      value: '156',
-      trend: 8.2,
-      icon: FiFileText,
-      color: 'from-green-500 to-green-600'
-    },
-    {
       title: 'Video Views',
-      value: '45.2K',
+      value: '15.2K',
       trend: 23.1,
       icon: FiPlay,
       color: 'from-purple-500 to-purple-600'
     },
     {
-      title: 'Engagement',
-      value: '89.3%',
-      trend: 5.7,
+      title: 'Total Likes',
+      value: '3.4K',
+      trend: 15.7,
       icon: FiHeart,
       color: 'from-red-500 to-red-600'
+    },
+    {
+      title: 'Monthly Views',
+      value: '8.9K',
+      trend: 12.3,
+      icon: FiEye,
+      color: 'from-green-500 to-green-600'
     }
   ];
 
   const recentActivity = [
-    { action: 'New blog post published', time: '2 minutes ago', type: 'content', icon: FiFileText },
-    { action: 'User registration spike', time: '5 minutes ago', type: 'user', icon: FiUsers },
-    { action: 'Video uploaded successfully', time: '1 hour ago', type: 'video', icon: FiPlay },
-    { action: 'Analytics report generated', time: '2 hours ago', type: 'system', icon: FiTrendingUp },
-    { action: 'New concert booking inquiry', time: '3 hours ago', type: 'booking', icon: FiCalendar }
+    { action: 'Published new blog post: "Marching Band Tips"', time: '2 minutes ago', type: 'content', icon: FiFileText },
+    { action: 'Uploaded new performance video', time: '1 hour ago', type: 'video', icon: FiPlay },
+    { action: 'Updated portfolio with new concert', time: '2 hours ago', type: 'portfolio', icon: FiMusic },
+    { action: 'Received new contact inquiry', time: '3 hours ago', type: 'contact', icon: FiCalendar },
+    { action: 'Generated monthly analytics report', time: '1 day ago', type: 'system', icon: FiTrendingUp }
   ];
 
   const topContent = [
@@ -63,10 +62,10 @@ const AdminDemo = () => {
       <div className="flex items-center justify-between">
         <div>
           <h1 className={`text-3xl font-bold ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
-            🎵 Note Hero Hub Admin
+            🎵 Welcome Back, Euan!
           </h1>
           <p className={`mt-1 ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>
-            Welcome to your admin dashboard! Manage your musical portfolio.
+            Here's an overview of your Note Hero Hub portfolio.
           </p>
         </div>
         <div className="flex items-center space-x-3">
@@ -130,7 +129,7 @@ const AdminDemo = () => {
           <h3 className={`text-lg font-semibold mb-4 ${
             theme === 'dark' ? 'text-white' : 'text-gray-900'
           }`}>
-            🔔 Recent Activity
+            📝 Recent Activity
           </h3>
           <div className="space-y-3">
             {recentActivity.map((activity, index) => (
@@ -145,9 +144,9 @@ const AdminDemo = () => {
               >
                 <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${
                   activity.type === 'content' ? 'bg-blue-100 text-blue-600' :
-                  activity.type === 'user' ? 'bg-green-100 text-green-600' :
                   activity.type === 'video' ? 'bg-purple-100 text-purple-600' :
-                  activity.type === 'booking' ? 'bg-yellow-100 text-yellow-600' :
+                  activity.type === 'portfolio' ? 'bg-green-100 text-green-600' :
+                  activity.type === 'contact' ? 'bg-yellow-100 text-yellow-600' :
                   'bg-gray-100 text-gray-600'
                 }`}>
                   <SafeIcon icon={activity.icon} className="w-4 h-4" />
@@ -225,7 +224,7 @@ const AdminDemo = () => {
         </motion.div>
       </div>
 
-      {/* Charts Section */}
+      {/* Performance Chart */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -239,7 +238,7 @@ const AdminDemo = () => {
         <h3 className={`text-lg font-semibold mb-4 ${
           theme === 'dark' ? 'text-white' : 'text-gray-900'
         }`}>
-          📊 Page Views (Last 6 Months)
+          📊 Portfolio Views (Last 6 Months)
         </h3>
         <div className="h-64 flex items-end justify-between space-x-2">
           {[
@@ -276,16 +275,16 @@ const AdminDemo = () => {
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ delay: 0.6 }}
-        className="bg-gradient-to-r from-green-500 to-emerald-600 rounded-xl p-6 text-white"
+        className="bg-gradient-to-r from-primary-500 to-primary-600 rounded-xl p-6 text-black"
       >
         <div className="flex items-center space-x-3">
-          <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center">
-            <span className="text-2xl">✅</span>
+          <div className="w-12 h-12 bg-black/20 rounded-full flex items-center justify-center">
+            <span className="text-2xl">🎵</span>
           </div>
           <div>
-            <h3 className="text-lg font-semibold">Admin Dashboard is Working!</h3>
-            <p className="text-white/80">
-              Your Note Hero Hub admin system is fully functional with real-time data and comprehensive management tools.
+            <h3 className="text-lg font-semibold">Personal Portfolio Dashboard</h3>
+            <p className="text-black/80">
+              Your streamlined admin system is optimized for single-user management with all the tools you need to showcase your musical journey.
             </p>
           </div>
         </div>

@@ -5,9 +5,7 @@ import { Helmet } from 'react-helmet-async';
 import AdminSidebar from '../../components/admin/AdminSidebar';
 import AdminHeader from '../../components/admin/AdminHeader';
 import AdminDemo from '../../components/admin/AdminDemo';
-import DashboardOverview from '../../components/admin/DashboardOverview';
 import ContentManager from '../../components/admin/ContentManager';
-import UserManager from '../../components/admin/UserManager';
 import MediaManager from '../../components/admin/MediaManager';
 import AnalyticsReports from '../../components/admin/AnalyticsReports';
 import AdminSettings from '../../components/admin/AdminSettings';
@@ -21,7 +19,7 @@ const AdminDashboard = () => {
     <>
       <Helmet>
         <title>Admin Dashboard - Note Hero Hub</title>
-        <meta name="description" content="Admin dashboard for Note Hero Hub management" />
+        <meta name="description" content="Personal admin dashboard for Note Hero Hub" />
         <meta name="robots" content="noindex, nofollow, noarchive, nosnippet" />
       </Helmet>
 
@@ -56,9 +54,7 @@ const AdminDashboard = () => {
               <Routes>
                 <Route path="/" element={<Navigate to="/admin/dashboard" replace />} />
                 <Route path="/dashboard" element={<AdminDemo />} />
-                <Route path="/overview" element={<DashboardOverview />} />
                 <Route path="/content" element={<ContentManager />} />
-                <Route path="/users" element={<UserManager />} />
                 <Route path="/media" element={<MediaManager />} />
                 <Route path="/analytics" element={<AnalyticsReports />} />
                 <Route path="/settings" element={<AdminSettings />} />
