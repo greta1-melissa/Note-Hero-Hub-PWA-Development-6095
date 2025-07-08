@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { Helmet } from 'react-helmet-async';
 import AdminSidebar from '../../components/admin/AdminSidebar';
 import AdminHeader from '../../components/admin/AdminHeader';
+import AdminDemo from '../../components/admin/AdminDemo';
 import DashboardOverview from '../../components/admin/DashboardOverview';
 import ContentManager from '../../components/admin/ContentManager';
 import UserManager from '../../components/admin/UserManager';
@@ -54,7 +55,8 @@ const AdminDashboard = () => {
             >
               <Routes>
                 <Route path="/" element={<Navigate to="/admin/dashboard" replace />} />
-                <Route path="/dashboard" element={<DashboardOverview />} />
+                <Route path="/dashboard" element={<AdminDemo />} />
+                <Route path="/overview" element={<DashboardOverview />} />
                 <Route path="/content" element={<ContentManager />} />
                 <Route path="/users" element={<UserManager />} />
                 <Route path="/media" element={<MediaManager />} />
