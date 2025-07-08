@@ -19,7 +19,6 @@ export const AuthProvider = ({ children }) => {
   const login = (credentials) => {
     // Simple single-user authentication
     const { username, password } = credentials;
-    
     if (username === 'notehero' && password === 'euan123') {
       // Set session cookie (expires in 24 hours)
       Cookies.set('admin_token', 'admin_session_token', { expires: 1 });
@@ -34,20 +33,8 @@ export const AuthProvider = ({ children }) => {
     setIsAuthenticated(false);
   };
 
-  const updatePassword = (newPassword) => {
-    // In a real app, this would update the password securely
-    console.log('Password updated for admin user');
-    return true;
-  };
-
   return (
-    <AuthContext.Provider value={{
-      isAuthenticated,
-      loading,
-      login,
-      logout,
-      updatePassword
-    }}>
+    <AuthContext.Provider value={{ isAuthenticated, loading, login, logout }}>
       {children}
     </AuthContext.Provider>
   );
